@@ -1,0 +1,10 @@
+spring:
+  h2:
+    console:
+      enabled: false   # 외부에 H2 콘솔 노출 금지
+
+  jpa:
+    show-sql: false
+
+  thymeleaf:
+    cache: true

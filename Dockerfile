@@ -1,11 +1,12 @@
-# 1단계: Render에서 직접 빌드
-FROM gradle:8-jdk17 AS build
+# 1단계: 빌드
+FROM openjdk:21-jdk-slim AS builder
 WORKDIR /app
 COPY . .
-RUN gradle build --no-daemon -x test
+RUN chmod +x ./gradlew
+RUN ./gradlew clean bootJar -x test
 
-# 2단계: 빌드된 JAR 실행
-FROM eclipse-temurin:17-jdk
+# 2단계: 실행
+FROM openjdk:21-jdk-slim
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
-CMD ["java", "-jar", "-Duser.timezone=Asia/Seoul", "/app/app.jar"]
+COPY --from=builder /app/build/libs/*.jar app.jar
+CMD ["java", "-jar", "app.jar"]

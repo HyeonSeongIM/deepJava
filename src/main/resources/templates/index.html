@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyeonSeong | Backend Engineer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand text-white" href="/">
+            <i class="bi bi-terminal-fill text-primary me-1"></i>HyeonSeong
+        </a>
+        <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto gap-2">
+                <li class="nav-item"><a class="nav-link text-white fw-semibold" href="/">홈</a></li>
+                <li class="nav-item"><a class="nav-link text-secondary" href="/projects">프로젝트</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="hero-badge"><i class="bi bi-cpu me-1"></i>JVM &amp; OS Kernel Engineer</span>
+                <h1 class="mb-3">안녕하세요,<br>백엔드 개발자<br><span class="text-primary">HyeonSeong</span>입니다.</h1>
+                <p class="lead mb-4">
+                    JVM 내부 동작과 OS 커널 레벨의 시스템 프로그래밍에 관심이 많습니다.<br>
+                    깊은 이해를 바탕으로 성능 최적화와 안정적인 서비스를 만드는 것을 목표로 합니다.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/projects" class="btn btn-primary px-4">
+                        <i class="bi bi-folder2-open me-1"></i>프로젝트 보기
+                    </a>
+                    <a href="https://github.com/HyeonSeong" target="_blank" class="btn btn-outline-secondary px-4">
+                        <i class="bi bi-github me-1"></i>GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block text-center mt-4 mt-lg-0">
+                <i class="bi bi-layers-fill" style="font-size: 10rem; color: rgba(13,110,253,0.25);"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section class="section">
+    <div class="container">
+        <p class="section-title">About Me</p>
+        <div class="section-divider"></div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="skill-card text-center">
+                    <div class="skill-icon">☕</div>
+                    <h5>JVM Deep Dive</h5>
+                    <p class="text-secondary small mb-0">힙 메모리 구조, GC 알고리즘(G1GC/ZGC), JVM Attach API 등 JVM 내부를 깊이 탐구합니다.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="skill-card text-center">
+                    <div class="skill-icon">⚙️</div>
+                    <h5>OS Kernel</h5>
+                    <p class="text-secondary small mb-0">CPU 스케줄링, 메모리 관리, 시스템 콜 등 운영체제 커널 레벨의 동작 원리를 학습하고 구현합니다.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="skill-card text-center">
+                    <div class="skill-icon">🚀</div>
+                    <h5>Performance</h5>
+                    <p class="text-secondary small mb-0">JMH 벤치마크, 프로파일링, 튜닝을 통해 실측 데이터 기반의 성능 최적화를 추구합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section class="section" style="background: rgba(30,41,59,0.4); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="container">
+        <p class="section-title">Tech Stack</p>
+        <div class="section-divider"></div>
+        <div class="row g-4">
+            <!-- Backend -->
+            <div class="col-md-4">
+                <div class="skill-card">
+                    <div class="skill-icon">🖥️</div>
+                    <h5>Backend</h5>
+                    <div>
+                        <span class="skill-tag">Java 21</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Spring MVC</span>
+                        <span class="skill-tag">Spring Data JPA</span>
+                        <span class="skill-tag">Hibernate</span>
+                        <span class="skill-tag">REST API</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Database -->
+            <div class="col-md-4">
+                <div class="skill-card">
+                    <div class="skill-icon">🗄️</div>
+                    <h5>Database &amp; Infra</h5>
+                    <div>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Gradle</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Low-level -->
+            <div class="col-md-4">
+                <div class="skill-card">
+                    <div class="skill-icon">🔬</div>
+                    <h5>Low-level / Systems</h5>
+                    <div>
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">JVM Internals</span>
+                        <span class="skill-tag">GC Tuning</span>
+                        <span class="skill-tag">JMH</span>
+                        <span class="skill-tag">OS Kernel</span>
+                        <span class="skill-tag">CPU Scheduling</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="section">
+    <div class="container text-center">
+        <p class="section-title">Contact</p>
+        <div class="section-divider mx-auto"></div>
+        <p class="text-secondary mb-4">협업 및 문의는 언제든지 환영합니다.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="mailto:gus8131@gmail.com" class="btn btn-outline-primary px-4">
+                <i class="bi bi-envelope me-1"></i>gus8131@gmail.com
+            </a>
+            <a href="https://github.com/HyeonSeong" target="_blank" class="btn btn-outline-secondary px-4">
+                <i class="bi bi-github me-1"></i>github.com/HyeonSeong
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2026 HyeonSeong. Built with Spring Boot &amp; Thymeleaf.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-INSERT IGNORE INTO project (id, title, category, summary, content, github, tags) VALUES
+INSERT INTO project (id, title, category, summary, content, github, tags) VALUES
 (1,
  'JVM 힙 메모리 분석기',
  'JVM',

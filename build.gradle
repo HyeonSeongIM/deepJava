@@ -39,7 +39,7 @@ bootRun {
             '-Xms512m',
             '-Xmx512m',
             '-XX:+UseG1GC',
-            '-Xlog:gc*:file=./gc-g1.log'
+            '-Xlog:gc*:file=./gc-g1-default.log'
     ])
 }
 

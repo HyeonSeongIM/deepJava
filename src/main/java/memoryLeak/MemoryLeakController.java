@@ -18,4 +18,11 @@ public class MemoryLeakController {
         memoryLeakService.scenario1();
         return "scenario1 - static leak";
     }
+
+    // [#2] feat : 컬렉션 변수 메모리 누수 테스트 API
+    @GetMapping("/leak/collection")
+    public String scenario2() {
+        memoryLeakService.scenario2();
+        return "scenario2 - collection leak";
+    }
 }

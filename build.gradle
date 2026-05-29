@@ -34,6 +34,15 @@ dependencies {
     implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
+bootRun {
+    jvmArgs([
+            '-Xms64m',
+            '-Xmx128m',
+            '-XX:+HeapDumpOnOutOfMemoryError',
+            '-XX:HeapDumpPath=./heapdump.hprof'
+    ])
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

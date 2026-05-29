@@ -34,6 +34,15 @@ dependencies {
     implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
+bootRun {
+    jvmArgs([
+            '-Xms512m',
+            '-Xmx512m',
+            '-XX:+UseG1GC',
+            '-Xlog:gc*:file=./gc.log'
+    ])
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

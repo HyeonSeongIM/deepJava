@@ -36,7 +36,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, metrics, heapdump, info
+        include: health, metrics, heapdump, info, prometheus
   endpoint:
     heapdump:
       enabled: true

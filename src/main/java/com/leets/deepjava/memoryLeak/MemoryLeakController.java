@@ -58,4 +58,11 @@ public class MemoryLeakController {
         memoryLeakSolutionService.scenario3Fixed(id);
         return "scenario3 - fixed";
     }
+
+    // [#4] feat : OOM 발생 API
+    @GetMapping("/oom")
+    public String triggerOOM() {
+        memoryLeakService.triggerOOM();
+        return "oom triggered";
+    }
 }

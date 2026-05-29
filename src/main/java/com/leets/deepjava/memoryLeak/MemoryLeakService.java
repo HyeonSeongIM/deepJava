@@ -31,4 +31,12 @@ public class MemoryLeakService {
         HeavyObject obj = new HeavyObject(id);
         objectHolder.put(id, obj);
     }
+
+    // [#4] feat : OOM 발생 Service
+    public void triggerOOM() {
+        List<byte[]> oomList = new ArrayList<>();
+        while (true) {
+            oomList.add(new byte[1024 * 1024]);
+        }
+    }
 }

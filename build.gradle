@@ -36,13 +36,13 @@ dependencies {
 
 bootRun {
     jvmArgs([
-            '-Xms512m',
-            '-Xmx512m',
+            '-Xms256m',
+            '-Xmx256m',
             '-XX:+UseG1GC',
-            '-XX:MaxGCPauseMillis=50',
-            '-XX:InitiatingHeapOccupancyPercent=35',
-            '-XX:ParallelGCThreads=4',
-            '-Xlog:gc*:file=./gc-g1-optimized.log'
+            '-XX:+HeapDumpOnOutOfMemoryError',
+            '-XX:HeapDumpPath=./heapdump.hprof',
+            '-XX:+ExitOnOutOfMemoryError',
+            '-Xlog:gc*:file=./gc-oom.log'
     ])
 }
 

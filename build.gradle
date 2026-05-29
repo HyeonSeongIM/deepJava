@@ -40,7 +40,9 @@ bootRun {
             '-Xmx512m',
             '-XX:+UseG1GC',
             '-XX:MaxGCPauseMillis=50',
-            '-Xlog:gc*:file=./gc-g1-pause50.log'
+            '-XX:InitiatingHeapOccupancyPercent=35',
+            '-XX:ParallelGCThreads=4',
+            '-Xlog:gc*:file=./gc-g1-optimized.log'
     ])
 }
 

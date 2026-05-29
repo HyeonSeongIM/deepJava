@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -24,5 +26,13 @@ public class MemoryLeakController {
     public String scenario2() {
         memoryLeakService.scenario2();
         return "scenario2 - collection leak";
+    }
+
+    // [#2] feat : 다른 객체 참고 누수 테스트 API
+    @GetMapping("/leak/reference")
+    public String scenario3() {
+        String id = UUID.randomUUID().toString();
+        memoryLeakService.scenario3(id);
+        return "scenario3 - reference leak";
     }
 }

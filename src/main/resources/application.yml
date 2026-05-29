@@ -32,11 +32,14 @@ spring:
   thymeleaf:
     cache: false
 
+  jmx:
+    enabled: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: health, metrics, heapdump, info, prometheus
+        include: health, metrics, heapdump, info, prometheus, env
   endpoint:
     heapdump:
       enabled: true

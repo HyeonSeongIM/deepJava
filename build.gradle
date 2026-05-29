@@ -37,7 +37,10 @@ dependencies {
 bootRun {
     jvmArgs([
             '-Xms64m',
-            '-Xmx128m',
+            '-Xmx256m',                        // 전체 Heap 256MB로 제한
+            '-XX:NewRatio=1',                   // Young:Old = 1:1 (Old Gen 작게)
+            '-XX:G1NewSizePercent=50',          // Young Gen 50%
+            '-XX:G1MaxNewSizePercent=50',       // Young Gen 최대 50%
             '-XX:+HeapDumpOnOutOfMemoryError',
             '-XX:HeapDumpPath=./heapdump.hprof'
     ])

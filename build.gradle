@@ -38,8 +38,8 @@ bootRun {
     jvmArgs([
             '-Xms512m',
             '-Xmx512m',
-            '-XX:+UseG1GC',
-            '-Xlog:gc*:file=./gc.log'
+            '-XX:+UseSerialGC',
+            '-Xlog:gc*:file=./gc-serial.log'
     ])
 }
 

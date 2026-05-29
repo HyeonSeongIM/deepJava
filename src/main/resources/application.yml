@@ -31,3 +31,15 @@ spring:
 
   thymeleaf:
     cache: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, heapdump, info
+  endpoint:
+    heapdump:
+      enabled: true
+  metrics:
+    enable:
+      jvm: true

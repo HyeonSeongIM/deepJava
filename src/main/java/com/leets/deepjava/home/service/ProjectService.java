@@ -1,7 +1,7 @@
-package com.leets.deepjava.service;
+package com.leets.deepjava.home.service;
 
-import com.leets.deepjava.domain.Project;
-import com.leets.deepjava.repository.ProjectRepository;
+import com.leets.deepjava.home.domain.Project;
+import com.leets.deepjava.home.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
-package com.leets.deepjava.controller;
+package com.leets.deepjava.home.controller;
 
-import com.leets.deepjava.domain.Project;
-import com.leets.deepjava.service.ProjectService;
+import com.leets.deepjava.home.domain.Project;
+import com.leets.deepjava.home.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

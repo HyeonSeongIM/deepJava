@@ -1,6 +1,6 @@
-package com.leets.deepjava.repository;
+package com.leets.deepjava.home.repository;
 
-import com.leets.deepjava.domain.Project;
+import com.leets.deepjava.home.domain.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

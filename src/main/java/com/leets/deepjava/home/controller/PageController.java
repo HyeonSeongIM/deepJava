@@ -1,6 +1,6 @@
-package com.leets.deepjava.controller;
+package com.leets.deepjava.home.controller;
 
-import com.leets.deepjava.service.ProjectService;
+import com.leets.deepjava.home.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

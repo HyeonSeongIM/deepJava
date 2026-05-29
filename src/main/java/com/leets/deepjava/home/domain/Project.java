@@ -1,4 +1,4 @@
-package com.leets.deepjava.domain;
+package com.leets.deepjava.home.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

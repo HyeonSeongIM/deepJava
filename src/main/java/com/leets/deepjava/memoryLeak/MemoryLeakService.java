@@ -1,4 +1,4 @@
-package memoryLeak;
+package com.leets.deepjava.memoryLeak;
 
 import org.springframework.stereotype.Service;
 

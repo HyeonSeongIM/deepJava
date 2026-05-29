@@ -14,3 +14,12 @@ services:
       - "3000:3000"
     depends_on:
       - prometheus
+
+# 이렇게 docker-compose.yml 파일에서 재시작할 수 있음
+#  app:
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    restart: always       # ← 핵심! 죽으면 자동 재시작
+#    volumes:
+#      - ./heapdump:/app   # 덤프 파일 로컬에 저장

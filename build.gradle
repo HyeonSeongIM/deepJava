@@ -39,8 +39,8 @@ bootRun {
             '-Xms512m',
             '-Xmx512m',
             '-XX:+UseG1GC',
-            '-XX:InitiatingHeapOccupancyPercent=35',
-            '-Xlog:gc*:file=./gc-g1-ihop35.log'
+            '-XX:MaxGCPauseMillis=50',
+            '-Xlog:gc*:file=./gc-g1-pause50.log'
     ])
 }
 

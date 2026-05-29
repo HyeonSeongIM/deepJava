@@ -37,18 +37,21 @@ public class MemoryLeakController {
         return "scenario3 - reference leak";
     }
 
+    // [#2] feat : 정적 변수 메모리 누수 해결 테스트 API
     @GetMapping("/fix/static")
     public String scenario1Fixed() {
         memoryLeakSolutionService.scenario1Fixed();
         return "scenario1 - fixed";
     }
 
+    // [#2] feat : 컬렉션 변수 메모리 누수 해결 테스트 API
     @GetMapping("/fix/collection")
     public String scenario2Fixed() {
         memoryLeakSolutionService.scenario2Fixed();
         return "scenario2 - fixed";
     }
 
+    // [#2] feat : 참조 객체 변수 메모리 누수 해결 테스트 API
     @GetMapping("/fix/reference")
     public String scenario3Fixed() {
         String id = UUID.randomUUID().toString();

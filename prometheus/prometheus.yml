@@ -1,8 +1,17 @@
 global:
-  scrape_interval: 5s  # 5초마다 메트릭 수집
+  scrape_interval: 5s
 
 scrape_configs:
-  - job_name: 'spring-boot'
+  - job_name: 'app1'
     static_configs:
-      - targets: ['host.docker.internal:8080']  # 로컬 Spring Boot 서버
+      - targets: ['app1:8080']
     metrics_path: '/actuator/prometheus'
+
+  - job_name: 'app2'
+    static_configs:
+      - targets: ['app2:8080']
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']

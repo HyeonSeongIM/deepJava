@@ -14,7 +14,7 @@ export const options = {
 };
 
 export default function () {
-    const res = http.get('http://localhost:80/api/fix/static');
+    const res = http.get('http://localhost:80/api/gc-stress');
     check(res, { 'status 200': (r) => r.status === 200 });
     sleep(0.5);
 }

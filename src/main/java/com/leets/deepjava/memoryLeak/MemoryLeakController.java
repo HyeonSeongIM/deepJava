@@ -59,6 +59,13 @@ public class MemoryLeakController {
         return "scenario3 - fixed";
     }
 
+    // GC 튜닝 실험용 API
+    @GetMapping("/gc-stress")
+    public String gcStress() {
+        memoryLeakSolutionService.gcStress();
+        return "gc-stress ok";
+    }
+
     // [#4] feat : OOM 발생 API
     @GetMapping("/oom")
     public String triggerOOM() {

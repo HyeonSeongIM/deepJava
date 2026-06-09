@@ -36,4 +36,13 @@ public class MemoryLeakSolutionService {
         objectHolder.remove(id);
     }
 
+    // GC 튜닝 실험용: 요청당 단기 객체 생성 후 즉시 GC 대상화
+    public int gcStress() {
+        List<byte[]> shortLived = new ArrayList<>();
+        for (int i = 0; i < 200; i++) {
+            shortLived.add(new byte[5 * 1024]); // 5KB × 200 = 1MB per request
+        }
+        return shortLived.stream().mapToInt(b -> b.length).sum();
+    }
+
 }

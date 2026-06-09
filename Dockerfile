@@ -14,8 +14,8 @@ ENV JAVA_OPTS="-XX:+UseG1GC"
 CMD ["sh", "-c", "java \
   -Xms512m -Xmx512m \
   $JAVA_OPTS \
-  -Xlog:gc*:file=/app/logs/gc.log:time,uptime,level,tags:filecount=5,filesize=20m \
-  -Xlog:safepoint:file=/app/logs/safepoint.log:time,uptime \
+  -Xlog:gc*:stdout:time,uptime,level,tags \
+  -Xlog:safepoint:stdout:time,uptime \
   -XX:+HeapDumpOnOutOfMemoryError \
   -XX:HeapDumpPath=/app/heapdump/heapdump.hprof \
   -XX:+ExitOnOutOfMemoryError \

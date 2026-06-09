@@ -3,31 +3,16 @@ services:
     build: .
     container_name: app1
     restart: always
-    cpus: "4"
+    cpus: "8"
     mem_limit: 640m
     environment:
       - PORT=8080
-      - JAVA_OPTS=-XX:+UseG1GC
+      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=8 -XX:ConcGCThreads=1
     ports:
       - "8081:8080"
     volumes:
       - ./heapdump/app1:/app/heapdump
       - ./logs/app1:/app/logs
-
-  app2:
-    build: .
-    container_name: app2
-    restart: always
-    cpus: "4"
-    mem_limit: 640m
-    environment:
-      - PORT=8080
-      - JAVA_OPTS=-XX:+UseG1GC
-    ports:
-      - "8082:8080"
-    volumes:
-      - ./heapdump/app2:/app/heapdump
-      - ./logs/app2:/app/logs
 
   nginx:
     image: nginx:alpine

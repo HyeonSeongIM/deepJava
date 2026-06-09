@@ -36,14 +36,12 @@ dependencies {
 
 bootRun {
     jvmArgs([
-            '-Xms1024m',
-            '-Xmx1024m',
+            '-Xms512m',
+            '-Xmx512m',
             '-XX:+UseG1GC',
             '-XX:+HeapDumpOnOutOfMemoryError',
             '-XX:HeapDumpPath=./heapdump.hprof',
             '-XX:+ExitOnOutOfMemoryError',
-            '-XX:OnOutOfMemoryError=./restart.sh'
-
     ])
 }
 

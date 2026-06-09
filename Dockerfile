@@ -9,11 +9,14 @@ RUN ./gradlew clean bootJar -x test
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
-RUN mkdir -p /app/heapdump
-CMD ["java", \
-  "-Xms256m", "-Xmx256m", \
-  "-XX:+UseG1GC", \
-  "-XX:+HeapDumpOnOutOfMemoryError", \
-  "-XX:HeapDumpPath=/app/heapdump/heapdump.hprof", \
-  "-XX:+ExitOnOutOfMemoryError", \
-  "-jar", "app.jar"]
+RUN mkdir -p /app/heapdump /app/logs
+ENV JAVA_OPTS="-XX:+UseG1GC"
+CMD ["sh", "-c", "java \
+  -Xms512m -Xmx512m \
+  $JAVA_OPTS \
+  -Xlog:gc*:file=/app/logs/gc.log:time,uptime,level,tags:filecount=5,filesize=20m \
+  -Xlog:safepoint:file=/app/logs/safepoint.log:time,uptime \
+  -XX:+HeapDumpOnOutOfMemoryError \
+  -XX:HeapDumpPath=/app/heapdump/heapdump.hprof \
+  -XX:+ExitOnOutOfMemoryError \
+  -jar app.jar"]

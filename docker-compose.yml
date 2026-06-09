@@ -7,7 +7,7 @@ services:
     mem_limit: 640m
     environment:
       - PORT=8080
-      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=8 -XX:ConcGCThreads=1
+      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1
     ports:
       - "8081:8080"
     volumes:

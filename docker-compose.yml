@@ -1,27 +1,33 @@
-version: '3.8'
-
 services:
   app1:
     build: .
     container_name: app1
     restart: always
+    cpus: "4"
+    mem_limit: 640m
     environment:
       - PORT=8080
+      - JAVA_OPTS=-XX:+UseG1GC
     ports:
       - "8081:8080"
     volumes:
       - ./heapdump/app1:/app/heapdump
+      - ./logs/app1:/app/logs
 
   app2:
     build: .
     container_name: app2
     restart: always
+    cpus: "4"
+    mem_limit: 640m
     environment:
       - PORT=8080
+      - JAVA_OPTS=-XX:+UseG1GC
     ports:
       - "8082:8080"
     volumes:
       - ./heapdump/app2:/app/heapdump
+      - ./logs/app2:/app/logs
 
   nginx:
     image: nginx:alpine
@@ -44,6 +50,21 @@ services:
       - "9113:9113"
     depends_on:
       - nginx
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    pid: host
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)
+    ports:
+      - "9100:9100"
 
   prometheus:
     image: prom/prometheus

@@ -1,14 +1,14 @@
 services:
   app1:
     build: .
-    container_name: app1
+    container_name: LeeHaEun01
     restart: always
     cpus: "4"
     mem_limit: 640m
     environment:
       - PORT=8080
       - APP_INSTANCE_ID=app1
-      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350
+      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350 -XX:+ExitOnOutOfMemoryError
     ports:
       - "8081:8080"
     volumes:
@@ -17,14 +17,14 @@ services:
 
   app2:
     build: .
-    container_name: app2
+    container_name: LeeHaEun02
     restart: always
     cpus: "4"
     mem_limit: 640m
     environment:
       - PORT=8080
       - APP_INSTANCE_ID=app2
-      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350
+      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350 -XX:+ExitOnOutOfMemoryError
     ports:
       - "8082:8080"
     volumes:

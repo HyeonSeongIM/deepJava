@@ -2,7 +2,7 @@ services:
   app1:
     build: .
     container_name: app1
-    restart: always
+    restart: on-failure
     cpus: "4"
     mem_limit: 640m
     environment:
@@ -19,7 +19,7 @@ services:
   app2:
     build: .
     container_name: app2
-    restart: always
+    restart: on-failure
     cpus: "4"
     mem_limit: 640m
     environment:

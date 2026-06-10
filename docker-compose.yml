@@ -3,9 +3,9 @@ services:
     build: .
     container_name: app1
     restart: always
-    cpus: "8"
+    cpus: "4"
     mem_limit: 640m
-    environment:
+    environment: 
       - PORT=8080
       - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350
     ports:
@@ -13,6 +13,21 @@ services:
     volumes:
       - ./heapdump/app1:/app/heapdump
       - ./logs/app1:/app/logs
+
+  app2:
+    build: .
+    container_name: app2
+    restart: always
+    cpus: "4"
+    mem_limit: 640m
+    environment:
+      - PORT=8080
+      - JAVA_OPTS=-XX:+UseG1GC -XX:ParallelGCThreads=4 -XX:ConcGCThreads=1 -XX:InitiatingHeapOccupancyPercent=35 -XX:MaxGCPauseMillis=350
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./heapdump/app2:/app/heapdump
+      - ./logs/app2:/app/logs
 
   nginx:
     image: nginx:alpine
@@ -24,6 +39,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - app1
+      - app2
 
   nginx-exporter:
     image: nginx/nginx-prometheus-exporter:latest

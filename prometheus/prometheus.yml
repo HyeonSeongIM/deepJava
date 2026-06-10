@@ -7,6 +7,11 @@ scrape_configs:
       - targets: ['app1:8080']
     metrics_path: '/actuator/prometheus'
 
+  - job_name: 'app2'
+    static_configs:
+      - targets: ['app2:8080']
+    metrics_path: '/actuator/prometheus'
+
   - job_name: 'nginx'
     static_configs:
       - targets: ['nginx-exporter:9113']

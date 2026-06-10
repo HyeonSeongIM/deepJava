@@ -3,6 +3,7 @@ package com.leets.deepjava.memoryLeak;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -71,5 +72,12 @@ public class MemoryLeakController {
     public String triggerOOM() {
         memoryLeakService.triggerOOM();
         return "oom triggered";
+    }
+
+    // Least Connection 실습용: 지정된 ms 동안 연결을 점유
+    @GetMapping("/slow")
+    public String slow(@RequestParam(defaultValue = "5000") long ms) throws InterruptedException {
+        Thread.sleep(ms);
+        return "slow ok (" + ms + "ms)";
     }
 }

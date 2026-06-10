@@ -46,4 +46,4 @@ out/
 gc-*.log
 
 # Heap Dump
-heapdump.hprof.env
+.env

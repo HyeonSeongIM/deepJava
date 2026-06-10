@@ -1,6 +1,13 @@
 server:
   port: ${PORT:8080}
 
+alert:
+  slack:
+    webhook-url: ${SLACK_WEBHOOK_URL:}
+  heap:
+    threshold: 80          # 힙 사용률 몇 % 초과 시 알람
+    check-interval-ms: 10000  # 체크 주기 (ms)
+
 spring:
   application:
     name: deepJava

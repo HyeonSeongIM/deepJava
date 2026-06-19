@@ -1,0 +1,6 @@
+server:
+  port: 8000        # api-server(8080), nginx(80)랑 안 겹치게
+
+spring:
+  application:
+    name: gateway

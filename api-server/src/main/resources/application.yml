@@ -60,5 +60,5 @@ management:
         http.server.requests: 0.5, 0.95, 0.99
 
 jwt:
-  private-key: classpath:keys/private.pem
+  secret-key: ${JWT_SECRET_KEY}
   expiration-ms: 3600000

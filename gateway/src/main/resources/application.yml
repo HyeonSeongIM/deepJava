@@ -2,7 +2,7 @@ server:
   port: 8000
 
 jwt:
-  public-key: classpath:keys/public.pem
+  secret-key: ${JWT_SECRET_KEY}
 
 spring:
   application:

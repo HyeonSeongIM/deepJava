@@ -3,40 +3,24 @@ package com.leets.deepjava.user.service;
 import com.leets.deepjava.user.domain.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Encoders;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.FileSystemResource;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PublicKey;
-import java.util.Base64;
+import javax.crypto.SecretKey;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class JwtProviderTest {
 
     private JwtProvider jwtProvider;
-    private PublicKey publicKey;
+    private SecretKey secretKey;
 
     @BeforeEach
     void setUp() throws Exception {
-        KeyPairGenerator gen = KeyPairGenerator.getInstance("RSA");
-        gen.initialize(2048);
-        KeyPair pair = gen.generateKeyPair();
-        publicKey = pair.getPublic();
-
-        String pem = "-----BEGIN PRIVATE KEY-----\n"
-                + Base64.getMimeEncoder(64, new byte[]{'\n'})
-                        .encodeToString(pair.getPrivate().getEncoded())
-                + "\n-----END PRIVATE KEY-----\n";
-
-        Path tmp = Files.createTempFile("test-private", ".pem");
-        Files.writeString(tmp, pem);
-
-        jwtProvider = new JwtProvider(new FileSystemResource(tmp.toFile()), 3_600_000L);
+        secretKey = Jwts.SIG.HS256.key().build();
+        String base64Secret = Encoders.BASE64.encode(secretKey.getEncoded());
+        jwtProvider = new JwtProvider(base64Secret, 3_600_000L);
     }
 
     @Test
@@ -44,7 +28,7 @@ class JwtProviderTest {
         String token = jwtProvider.generate(42L, Role.USER);
 
         Claims claims = Jwts.parser()
-                .verifyWith(publicKey)
+                .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -58,7 +42,7 @@ class JwtProviderTest {
         String token = jwtProvider.generate(1L, Role.ADMIN);
 
         Claims claims = Jwts.parser()
-                .verifyWith(publicKey)
+                .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

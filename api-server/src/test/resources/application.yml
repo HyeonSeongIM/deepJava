@@ -16,5 +16,5 @@ spring:
       mode: never
 
 jwt:
-  private-key: classpath:keys/private.pem
+  secret-key: c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0MzI=
   expiration-ms: 3600000

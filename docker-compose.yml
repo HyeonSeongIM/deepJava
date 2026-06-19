@@ -1,6 +1,8 @@
 services:
   app1:
-    build: .
+    build:
+      context: .
+      dockerfile: api-server/Dockerfile
     container_name: app1
     restart: on-failure
     cpus: "4"
@@ -17,7 +19,9 @@ services:
       - ./logs/app1:/app/logs
 
   app2:
-    build: .
+    build:
+      context: .
+      dockerfile: api-server/Dockerfile
     container_name: app2
     restart: on-failure
     cpus: "4"
@@ -32,6 +36,20 @@ services:
     volumes:
       - ./heapdump/app2:/app/heapdump
       - ./logs/app2:/app/logs
+
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    container_name: gateway
+    restart: on-failure
+    environment:
+      - JAVA_OPTS=-XX:+UseG1GC
+      - API_UPSTREAM_URI=http://nginx:80
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nginx
 
   nginx:
     image: nginx:alpine

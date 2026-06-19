@@ -58,3 +58,7 @@ management:
         http.server.requests: true
       percentiles:
         http.server.requests: 0.5, 0.95, 0.99
+
+jwt:
+  private-key: classpath:keys/private.pem
+  expiration-ms: 3600000

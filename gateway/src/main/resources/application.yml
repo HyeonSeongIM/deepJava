@@ -1,6 +1,24 @@
 server:
-  port: 8000        # api-server(8080), nginx(80)랑 안 겹치게
+  port: 8000
+
+jwt:
+  public-key: classpath:keys/public.pem
 
 spring:
   application:
     name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: api-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/**
+
+        # 임시 검증용 라우트 (확인 끝나면 지워)
+        - id: test-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/test/**
+          filters:
+            - RewritePath=/test/(?<seg>.*), /actuator/$\{seg}

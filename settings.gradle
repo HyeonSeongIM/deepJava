@@ -1,1 +1,3 @@
 rootProject.name = 'deepJava'
+include 'api-server'
+include 'gateway'

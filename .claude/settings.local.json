@@ -1,7 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./gradlew clean *)"
+      "Bash(./gradlew clean *)",
+      "Bash(docker-compose ps *)",
+      "Bash(docker exec *)",
+      "Bash(chmod +x *)",
+      "Bash(curl -s -D - http://localhost/api/gc-stress -o /dev/null)",
+      "Bash(curl -s -D - http://localhost:8081/actuator/health -o /dev/null)",
+      "Bash(curl -s http://localhost:8081/api/gc-stress)",
+      "Bash(curl -sv http://localhost/api/gc-stress)",
+      "Bash(curl -s http://localhost:8082/api/gc-stress)",
+      "Bash(curl -s -D - http://localhost:8082/api/gc-stress -o /dev/null)",
+      "Bash(curl -s http://localhost:8081/actuator/health)",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s http://localhost:8081/api/leak/static)",
+      "Bash(curl -s 'http://localhost:8081/actuator/env')",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

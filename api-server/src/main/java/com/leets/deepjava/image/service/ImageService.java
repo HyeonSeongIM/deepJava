@@ -1,5 +1,6 @@
 package com.leets.deepjava.image.service;
 
+import com.leets.deepjava.image.dto.ImageData;
 import com.leets.deepjava.image.dto.ImageUploadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class ImageService {
                 .map(minioUploader::upload)
                 .toList();
         return new ImageUploadResponse(urls);
+    }
+
+    public ImageData getImage(String objectName) {
+        return minioUploader.download(objectName);
     }
 }

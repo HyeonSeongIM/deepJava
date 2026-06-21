@@ -1,11 +1,11 @@
 package com.leets.deepjava.image.service;
 
 import com.leets.deepjava.image.config.MinioProperties;
+import com.leets.deepjava.image.dto.ImageData;
+import com.leets.deepjava.image.exception.ImageNotFoundException;
 import com.leets.deepjava.image.exception.ImageUploadException;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.errors.ErrorResponseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +34,31 @@ public class MinioUploader {
             return minioProperties.getEndpoint() + "/" + minioProperties.getBucket() + "/" + objectName;
         } catch (Exception e) {
             throw new ImageUploadException("Failed to upload: " + file.getOriginalFilename(), e);
+        }
+    }
+
+    public ImageData download(String objectName) {
+        try {
+            StatObjectResponse stat = minioClient.statObject(
+                    StatObjectArgs.builder()
+                            .bucket(minioProperties.getBucket())
+                            .object(objectName)
+                            .build()
+            );
+            GetObjectResponse stream = minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(minioProperties.getBucket())
+                            .object(objectName)
+                            .build()
+            );
+            return new ImageData(stream, stat.contentType());
+        } catch (ErrorResponseException e) {
+            if ("NoSuchKey".equals(e.errorResponse().code())) {
+                throw new ImageNotFoundException("Image not found: " + objectName);
+            }
+            throw new ImageUploadException("Failed to get image: " + objectName, e);
+        } catch (Exception e) {
+            throw new ImageUploadException("Failed to get image: " + objectName, e);
         }
     }
 

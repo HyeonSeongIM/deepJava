@@ -1,10 +1,12 @@
 package com.leets.deepjava.image.service;
 
 import com.leets.deepjava.image.config.MinioProperties;
-import com.leets.deepjava.image.domain.exception.ImageUploadException;
-import io.minio.BucketExistsArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import com.leets.deepjava.image.dto.ImageData;
+import com.leets.deepjava.image.exception.ImageNotFoundException;
+import com.leets.deepjava.image.exception.ImageUploadException;
+import io.minio.*;
+import io.minio.errors.ErrorResponseException;
+import io.minio.messages.ErrorResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +30,8 @@ class MinioUploaderTest {
 
     @InjectMocks
     private MinioUploader minioUploader;
+
+    // ── upload ──────────────────────────────────────────────
 
     @Test
     void upload_bucketExists_returnsUrl() throws Exception {
@@ -63,6 +67,44 @@ class MinioUploaderTest {
         given(minioClient.bucketExists(any(BucketExistsArgs.class))).willThrow(new RuntimeException("connection failed"));
 
         assertThatThrownBy(() -> minioUploader.upload(file))
+                .isInstanceOf(ImageUploadException.class);
+    }
+
+    // ── download ─────────────────────────────────────────────
+
+    @Test
+    void download_returnsImageData() throws Exception {
+        given(minioProperties.getBucket()).willReturn("images");
+        StatObjectResponse stat = mock(StatObjectResponse.class);
+        given(stat.contentType()).willReturn("image/jpeg");
+        given(minioClient.statObject(any(StatObjectArgs.class))).willReturn(stat);
+        given(minioClient.getObject(any(GetObjectArgs.class))).willReturn(mock(GetObjectResponse.class));
+
+        ImageData result = minioUploader.download("test.jpg");
+
+        assertThat(result.contentType()).isEqualTo("image/jpeg");
+        assertThat(result.stream()).isNotNull();
+    }
+
+    @Test
+    void download_objectNotFound_throwsImageNotFoundException() throws Exception {
+        given(minioProperties.getBucket()).willReturn("images");
+        ErrorResponse errorResponse = mock(ErrorResponse.class);
+        given(errorResponse.code()).willReturn("NoSuchKey");
+        ErrorResponseException notFoundEx = mock(ErrorResponseException.class);
+        given(notFoundEx.errorResponse()).willReturn(errorResponse);
+        doThrow(notFoundEx).when(minioClient).statObject(any(StatObjectArgs.class));
+
+        assertThatThrownBy(() -> minioUploader.download("nonexistent.jpg"))
+                .isInstanceOf(ImageNotFoundException.class);
+    }
+
+    @Test
+    void download_minioThrows_wrapsAsImageUploadException() throws Exception {
+        given(minioProperties.getBucket()).willReturn("images");
+        given(minioClient.statObject(any(StatObjectArgs.class))).willThrow(new RuntimeException("connection failed"));
+
+        assertThatThrownBy(() -> minioUploader.download("test.jpg"))
                 .isInstanceOf(ImageUploadException.class);
     }
 }

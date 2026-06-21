@@ -1,5 +1,6 @@
 package com.leets.deepjava.image.controller;
 
+import com.leets.deepjava.image.exception.ImageNotFoundException;
 import com.leets.deepjava.image.exception.ImageUploadException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +16,11 @@ public class ImageExceptionHandler {
     public ResponseEntity<Map<String, String>> handleImageUploadException(ImageUploadException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("code", "IMAGE_UPLOAD_FAILED", "message", e.getMessage()));
+    }
+
+    @ExceptionHandler(ImageNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleImageNotFoundException(ImageNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("code", "IMAGE_NOT_FOUND", "message", e.getMessage()));
     }
 }

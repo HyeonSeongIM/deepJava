@@ -18,3 +18,9 @@ spring:
 jwt:
   secret-key: c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0c2VjcmV0MzI=
   expiration-ms: 3600000
+
+minio:
+  endpoint: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin
+  bucket: images

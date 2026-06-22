@@ -11,6 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
@@ -46,17 +47,17 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         }
         String token = authHeader.substring(7);
 
-        // ④ 검증 통과 → 검증된 값으로 헤더 주입
-        try {
-            Claims claims = jwtValidator.validateAndGetClaims(token);
-            ServerHttpRequest mutated = stripped.mutate()
-                    .header("X-User-Id", claims.getSubject())
-                    .header("X-User-Role", claims.get("role", String.class))
-                    .build();
-            return chain.filter(exchange.mutate().request(mutated).build());
-        } catch (Exception e) {
-            return unauthorized(exchange);
-        }
+        // ④ 검증 통과 → 검증된 값으로 헤더 주입 (이벤트 루프 블로킹 방지)
+        return Mono.fromCallable(() -> jwtValidator.validateAndGetClaims(token))
+                .subscribeOn(Schedulers.boundedElastic())
+                .flatMap(claims -> {
+                    ServerHttpRequest mutated = stripped.mutate()
+                            .header("X-User-Id", claims.getSubject())
+                            .header("X-User-Role", claims.get("role", String.class))
+                            .build();
+                    return chain.filter(exchange.mutate().request(mutated).build());
+                })
+                .onErrorResume(e -> unauthorized(exchange));
     }
 
     private Mono<Void> unauthorized(ServerWebExchange exchange) {

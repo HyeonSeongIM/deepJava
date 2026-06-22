@@ -4,6 +4,9 @@ server:
 jwt:
   secret-key: ${JWT_SECRET_KEY}
 
+gateway:
+  internal-secret: ${GATEWAY_INTERNAL_SECRET}
+
 spring:
   application:
     name: gateway
